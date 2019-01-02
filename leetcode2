@@ -1,0 +1,32 @@
+/**
+ * @author LI
+ * @version 在一个字符串中寻找一个字符串，返回第一次出现所寻找字符串的位置，若所寻找的字符串为空时，返回0.
+ */
+class FindString {
+    public int strStr(String haystack, String needle) { //haystack原字符串 needle 所需字符串
+        if(needle.length() == 0) //如果needle为空字符串
+            return 0;
+        char [] charArrayhaystack = haystack.toCharArray(); // 将字符串变为字符串数组
+        char [] charArrayneedle = needle.toCharArray();
+        for(int i =0;i<charArrayhaystack.length;i++)
+        {
+            if(charArrayhaystack[i] == charArrayneedle[0]) //找到一个与所寻找的字符串第一个字符相同
+            {
+                int j = i + 1;
+                int k = 1;  //代表与所寻找字符串相同字符的个数
+                for(k=1;k<charArrayneedle.length && j < charArrayhaystack.length;k++)
+                {
+                    if(charArrayhaystack[j] == charArrayneedle[k])
+                    {
+                        j++;
+                    }else{
+                        break;
+                    }
+                }
+                if(k == charArrayneedle.length) //代表已经找到needle字符串
+                    return i;
+            }
+        }
+        return -1;
+    }
+}
