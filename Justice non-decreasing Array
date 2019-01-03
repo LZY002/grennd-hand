@@ -1,0 +1,21 @@
+package leetcode;
+/**
+ * @author LI
+   @version 判断此数列是否为递减数列和是否可以变为递减数列
+ */ 
+ class Solution{
+ bool checkPossibility(int[]nums){
+   int n = nums.length;
+   int cnt = 0; // 计数存在的非递减的次数
+   for (int i = 1; i < n; i++) {
+       if (nums[i - 1] > nums[i]) {
+           cnt++; // cnt=1时可以补救，cnt>=2就不能补救
+          //当cnt=1时，有两种情况可以补救，一种比较第i+1个元素前后两个元素的大小
+          //第二种是比较第i个元素和第i+2个元素的大小也就是以第i+1个元素为中心，两边元素的大小
+          if((cnt == 1 && i >= 2 && i < n - 1 && nums[i] < nums[i - 2] && nums[i + 1] < nums[i - 1]) || cnt >= 2) 
+           return false;
+       }
+   }
+   return true;
+ }
+}
