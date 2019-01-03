@@ -1,0 +1,22 @@
+package leetcode;
+/**
+ * @author LI
+   @version 分发饼干，饼干的大小要满足小孩的胃口值 
+ */ 
+class Solution {
+    public int findContentChildren(int[] g, int[] s) { // g代表饼干的尺寸，s代表小孩的胃口值
+        //先对两个数组进行排序
+        Arrays.sort(g);
+        Arrays.sort(s);
+        int i = 0; //饼干的index
+        int j = 0; // 小孩的index
+        while (i < g.length && j < s.length) {
+            // 如果满足小孩的胃口
+            if (s[j] >= g[i]) {
+                i++;
+            }
+            j++;
+        }
+        return i;
+    }
+}
