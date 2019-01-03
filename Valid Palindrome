@@ -1,3 +1,8 @@
+package leetcode;
+/**
+ * @author LI
+   @version 判断一个字符串是否为回文字符串，只比较数字和字母，忽略字母的大小写
+ */
 class Solution {
 public:
     bool isPalindrome(string s) {
@@ -9,13 +14,14 @@ public:
             start++;
             while(start < end && (s[end] < '0' || (s[end] > '9' && s[end] < 'A') ||  (s[end] > 'Z' && s[end] < 'a') || s[end] > 'z')) 
             end--;
-            //cout << start << " " << end << endl;
+            
             //比较是否对称
-            if(((s[start] >= '0' && s[start] <= '9') || (s[end] >= '0' && s[end] <= '9')) && s[start] != s[end]) 
+            if(((s[start] >= '0' && s[start] <= '9') || (s[end] >= '0' && s[end] <= '9')) && s[start] != s[end]) //判断是否为数字并且比较是否相等
             return false;
-            if(s[start] != s[end] && abs(s[start] - s[end]) != 32) 
+            if(s[start] != s[end] && abs(s[start] - s[end]) != 32) //判断字母是否相等并排除大小写的差别
             return false;
-            start++, end--;
+            start++; 
+            end--;
         }
         return true;
     }
