@@ -1,11 +1,19 @@
+package leetcode;
+/**
+ * @author LI
+   @version 找到在字符串中第一个没有重复的字符
+ */ 
 class Solution {
     public int firstUniqChar(String s) {
-      int[] array=new int[26];
+      int[] array=new int[26]; // 构建一个数组，每个index对应一个字符，存放没有字母出现的次数
+      // 计算每个字母出现的次数
       for(char c:s.toCharArray()){
           array[c-'a']+=1;
       } 
       for(char c:s.toCharArray()){
-          if(array[c-'a']==1)return s.indexOf(c);
+          //只出现一次，则为不重复的字符
+          if(array[c-'a']==1)
+          return s.indexOf(c);
       }
         return -1;
     }
