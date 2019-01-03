@@ -1,11 +1,17 @@
+package leetcode;
+/**
+ * @author LI
+   @version 找到K个最小的元素
+ */ 
 import java.util.*;
 public class Solution {
    public ArrayList<Integer> GetLeastNumbers_Solution(int [] input, int k) {
        ArrayList<Integer> resultList = new ArrayList<>();
-       if(k > input.length || k<=0)
+       if(k > input.length || k<=0) // 判断K值的有效性
            return resultList;
-       //使用优先级队列建堆，优先级队列默认是最小堆，所以要重写比较器
+       //使用优先级队列建堆，优先级队列默认是最小堆（每次取出最小的元素），所以要重写比较器
        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(new Comparator<Integer>(){
+           // 变成最大堆
            public int compare(Integer o1,Integer o2){
                return o2.compareTo(o1);
            }
@@ -13,11 +19,15 @@ public class Solution {
        );
        for(int i=0;i<input.length;i++)
        {
-           if(i < k){//如果没有达到k个数，那么直接入堆
+           //如果没有达到k个数，那么直接入堆
+           if(i < k){
                maxHeap.add(input[i]);
-           }else{
+           }
+           // 达到k个时
+           else{
+               //堆顶的数比数组当前的数大，那么就堆顶出堆
                if(maxHeap.peek() > input[i])
-               {//堆顶的数比数组当前的数大，那么就堆顶出堆
+               {
                    maxHeap.poll();
                    maxHeap.add(input[i]);//把当前数加入堆中
                }
