@@ -1,19 +1,24 @@
- 
+package leetcode;
+/**
+ * @author LI
+   @version 找到符合特殊模式的字符串
+ */ 
  
  public static List<String> findAndReplacePattern(String[] words, String pattern) {
 
         List<String> resultList = new ArrayList<>();
-        List<List<Integer>> patternRule = getRule(pattern);
+        List<List<Integer>> patternRule = getRule(pattern); //得到所需模式的rule
 
         for (int i=0;i<words.length;i++){
-            boolean tempStatus = true;
+            boolean tempStatus = true; //表示是否符合所需模式
             //长度不一致，直接下一个
             if (words[i].length()!=pattern.length()) continue;
 
             List<List<Integer>> wordRule = getRule(words[i]);
-            if (patternRule.size()!=wordRule.size()) continue;
+            if (patternRule.size()!=wordRule.size()) continue; // 长度不一致，跳过
             for (int j=0;j<patternRule.size()&&tempStatus;j++){
-                List<Integer> patternRuleIntegers = patternRule.get(j);
+               // 依次比较各自的rule
+               List<Integer> patternRuleIntegers = patternRule.get(j);
                 List<Integer> wordRuleIntegers = wordRule.get(j);
                 for (int m=0;m<patternRuleIntegers.size();m++){
                     if (patternRuleIntegers.size()!=wordRuleIntegers.size()){
@@ -34,33 +39,33 @@
     }
 
     /**
-     * 传入字符串可以获得其规则（aabacc的规则为{{0,1,3},{2},{4,5}}）
-     * @param pattern
-     * @return
+     * 传入字符串可以获得其规则（aabacc的规则为{{0,1,3},{2},{4,5}}） 找出此字符在字符串中的位置索引index
      */
     public static List<List<Integer>> getRule(String pattern){
         //记录pattern的所有特点
-        List<List<Integer>> characterList = new ArrayList<>();
+        List<List<Integer>> characterList = new ArrayList<>(); //存放模式
         String currentCharacter = "";
-        List<Integer> recordList = new ArrayList<>();
+        List<Integer> recordList = new ArrayList<>(); // 存放已经找到的字符的index集合
 
         for (int i=0;i<pattern.length();i++){
-            if (recordList.contains(i)){
+            //判断此位置是否已经找到
+            if (recordList.contains(i)){ 
                 continue;
             }
             int tempIndex;
-            currentCharacter = pattern.substring(i,i+1);
+            currentCharacter = pattern.substring(i,i+1); //返回index为i的字符，为当前字符
             List<Integer> tempList=new ArrayList<>();
-            for (int j=i-1;;) {
-                tempIndex = pattern.indexOf(currentCharacter, j);
-                if (tempIndex==-1) break;
+           //在字符串中寻找字符
+           for (int j=i-1;;) {
+                tempIndex = pattern.indexOf(currentCharacter, j); //从index=j开始查找，currentCharacter第一次出现的索引index
+                if (tempIndex==-1) break; // 没有找到返回-1
 
-                recordList.add(tempIndex);
+                recordList.add(tempIndex); // 把找到的索引位置加到存放这个字符索引位置里面去
                 tempList.add(tempIndex);
-                if (tempIndex==pattern.length()-1) break;
-                j=tempIndex+1;
+                if (tempIndex==pattern.length()-1) break; // 找到最后一个后跳出循环
+                j=tempIndex+1; // 从找到字符位置的后一个位置继续寻找
             }
-            characterList.add(tempList);
+            characterList.add(tempList); //把字符的rule加入到存放模式的链表中
         }
         return characterList;
     }
