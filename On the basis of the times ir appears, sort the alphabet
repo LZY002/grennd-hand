@@ -1,0 +1,35 @@
+package leetcode;
+	/**
+	 * @author LI
+	   @version 根据每个字母出现的次数来重新排列字母的顺序
+	 */ 
+  class Solution {
+    public String frequencySort(String s) {
+        int[] freq = new int[256]; // 存储每个字母出现的次数
+        for(int i = 0; i < s.length(); i++){
+            freq[s.charAt(i)]++;
+        }
+        char[] res = new char[s.length()];
+        for(int i = 0; i < s.length();){
+            int index = findMaxIndex(freq);
+
+            for(int j = 0; j < freq[index]; j++){
+                res[i++] = (char)index; // res[i]=index,i++
+            }
+            freq[index] = 0;
+        }
+        return String.valueOf(res);
+    }
+   //找到次数最多的字母，返回下标
+   public int findMaxIndex(int[] freq){
+        int temp = 0;
+        int index = 0;
+        for(int i = 0; i < freq.length; i++){
+            if(temp < freq[i]){
+                temp = freq[i];
+                index = i;               
+            } 
+        }
+        return index;
+    }
+}
