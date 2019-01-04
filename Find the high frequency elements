@@ -1,0 +1,23 @@
+package leetcode;
+/**
+ * @author LI
+   @version 求在一个数组中出现的前K个高频字母
+ */ 
+ class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>(); // 存储每个元素出现的次数
+        //用map计数次数
+        for (int n: nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1); // 寻找键为n的值，如果没有此键，则设为默认值0
+        }
+        List<Integer> result = new ArrayList<>();
+        PriorityQueue<Integer> heap = new PriorityQueue<>((a, b) -> map.get(b) - map.get(a)); // 重写比较器，变为权值为出现次数的最大堆
+        for (int num : map.keySet()) {
+            heap.add(num);
+        }
+        for (int j=0; j<k; j++) {
+            result.add(heap.poll());
+        }
+        return result;
+    }
+}
