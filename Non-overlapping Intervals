@@ -1,0 +1,38 @@
+package leetcode;
+	/**
+	 * @author LI
+	   @version 找到需要移除的最小区间的数量，保证没有重叠的区间
+	 */ 
+ class Solution {
+  // 定义一个区间类
+  public class Interval {
+     int start;
+     int end;
+      Interval() { start = 0; end = 0; }
+      Interval(int s, int e) { start = s; end = e; }
+  }
+   public int eraseOverlapIntervals(Interval[] intervals) {
+        if(intervals.length == 0){
+            return 0;
+        }
+     // 新建一个比较器，比较每个区间end的大小  
+       Comparator<Interval> cmp = new Comparator<Interval>(){
+            public int compare(Interval a, Interval b){
+                return a.end - b.end;
+            }
+        };
+     // 以end的大小排序  
+       Arrays.sort(intervals,cmp);
+        int end = intervals[0].end;
+        int count = 1; //计数没有重叠的区间
+        for(int i = 1; i < intervals.length; i++){
+         //如果start比前一个区间的end大就意味着没有重叠   
+            if(intervals[i].start >= end){
+              //计数+1  
+                count++;
+                end = intervals[i].end;
+            }
+        }
+        return intervals.length - count;
+    }
+}
