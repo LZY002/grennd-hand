@@ -9,8 +9,9 @@ class Solution {
         int zero = -1; //从zero+1开始设为白色的起点
         int two = nums.length; // 从two--开始设置为蓝色的终点
         for(int i = 0; i < two;){
-            if(nums[i] == 0){
-             swap(nums, i++, ++zero);
+            // 前面肯定是白色或者蓝色，所以i++;
+	    if(nums[i] == 0){
+             swap(nums, i++, ++zero); // 先把i传进到swap函数，在i=i+1   先zero+1，再传进入函数内
             else if(nums[i] == 2){
                 swap(nums, i, --two);
             }
