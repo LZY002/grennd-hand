@@ -1,0 +1,35 @@
+package leetcode;
+	/**
+	 * @author LI
+	   @version （h，k）根据身高重建序列，此人前面不比他矮的人数为K
+	 */ 
+  class Solution {
+    public int[][] reconstructQueue(int[][] people) {
+           if(null==people||people.length==0||people[0].length==0){
+	            return new int[0][0];
+	        }
+	       //重新排序 身高高的排在前面 k值大的排在后面
+         Arrays.sort(people,new Comparator<int []>(){
+	        // 返回值大于0，a排在后面 
+          public int compare(int[] a,int[] b){
+	               if(a[0]==b[0]){
+	            	   return a[1]-b[1];
+	               }else{
+	            	   return b[0]-a[0];
+	               }
+	           } 
+	        });
+	       
+     // 存放队列
+	   List<int[]> list = new ArrayList<>();
+    //把每个人放到所对应的K的位置上
+    for (int i = 0; i < people.length; i++) {
+        list.add(people[i][1], new int[]{people[i][0], people[i][1]});
+    }
+    for (int i = 0; i < list.size(); i++) {
+        people[i][0] =  list.get(i)[0];
+        people[i][1] =  list.get(i)[1];
+    }
+        return people;
+    }
+}
