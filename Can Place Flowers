@@ -1,0 +1,37 @@
+package leetcode;
+	/**
+	 * @author LI
+	   @version 一朵花旁边不能种植花 开头和结尾需要特殊判断
+	 */ 
+class Solution {
+public boolean canPlaceFlowers(int[] flowerbed, int n) {
+    if (flowerbed == null || flowerbed.length == 0||n<0) {
+        return false;
+    }
+    if (n == 0) {
+        return true;
+    }
+    if (n == 1 && flowerbed.length == 1 && flowerbed[0] == 0) {
+        return true;
+    }
+   //判断开头
+   if (flowerbed[0] == 0 && flowerbed.length > 1 && flowerbed[1] == 0) {
+        flowerbed[0]=1;
+        n--;
+    }
+   //判断两边是否有花种植
+   for (int i = 1; i < flowerbed.length-1; i++) {
+        if (n == 0) {
+            break;
+        }
+        if (flowerbed[i] == 0 && flowerbed[i - 1] == 0 && flowerbed[i + 1] == 0) {
+            flowerbed[i]=1;
+            n--;
+        }
+    }
+   //判断结尾
+   if (n!=0&&flowerbed.length > 1 && flowerbed[flowerbed.length - 1] == 0 && flowerbed[flowerbed.length - 2] == 0) {
+        n--;
+    }
+    return n==0;
+}
