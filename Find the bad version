@@ -1,0 +1,22 @@
+package leetcode;
+	/**
+	 * @author LI
+	   @version 由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。
+     
+	 */ 
+public class Solution extends VersionControl {
+    public int firstBadVersion(int n) {
+        int l = 1, r = n;
+       // 二分法查找
+       while(l < r){
+            int mid = l + (r - l) / 2;
+            if(isBadVersion(mid)){
+                r = mid;
+            }
+            else{
+                l = mid + 1;
+            }
+        }
+        return l;
+    }
+}
