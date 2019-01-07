@@ -1,0 +1,33 @@
+package leetcode;
+	/**
+	 * @author LI
+	   @version 给定一个只包含整数的有序数组，每个元素都会出现两次，唯有一个数只会出现一次，找出这个数。
+
+	 */ 
+ class Solution {
+    public int singleNonDuplicate(int[] nums) {
+        int l = 0, r = nums.length - 1; // l为起点 r为终点
+         while(l < r){
+            int mid = l + (r - l) / 2;
+            if(mid % 2 == 0){
+               // 在后面
+               if(nums[mid] != nums[mid + 1]){
+                    r = mid;
+                }
+               //在前面
+               else{
+                    l = mid + 2;
+                }
+            }
+            else{
+                if(nums[mid] == nums[mid - 1]){
+                    l = mid + 1;
+                }
+                else{
+                    r = mid;
+                }
+            }         
+        }
+        return nums[l];
+    }
+}
