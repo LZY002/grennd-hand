@@ -1,0 +1,26 @@
+package leetcode;
+	/**
+	 * @author LI
+	   @version 求一个字符串中最长的不含重复字符的子串
+	 */
+   public class Solution {
+
+    public int lengthOfLongestSubstring(String s) {
+        int res = 0, left = 0;
+        int prev[] = new int[300];
+
+		
+        for (int i = 0; i < 300; ++i)
+            prev[i] = -1;
+
+        for (int i = 0; i < s.length(); ++i) {
+           // 有重复的字符
+           if (prev[s.charAt(i)] >= left)
+                left = prev[s.charAt(i)] + 1; // 改变开始的位置
+            prev[s.charAt(i)] = i; // 表示此字符的位置
+            // 取最长字符串
+            if (res < i - left + 1)
+                res = i - left + 1;
+        }
+        return res;
+    }
